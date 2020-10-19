@@ -48,9 +48,23 @@
     
     <version.info.reports.plugin>2.9</version.info.reports.plugin>
 
+    <version.hibernate>5.4.22.Final</version.hibernate>
+    <version.mysqlconnector.java>8.0.19</version.mysqlconnector.java>
+
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.4.22.Final</version>
+    </dependency>
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${version.mysqlconnector.java}</version>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
