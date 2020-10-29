@@ -16,7 +16,7 @@ public class App {
 
     public static void main( String[] args ) {
       readAnObjectHibernate();
-      // createAnObjectHibernate();
+      //createAnObjectHibernate();
       //dbConnectionWithJDBC();
     }
   
@@ -35,10 +35,17 @@ public class App {
         session.beginTransaction();
         // Read the data
         Customer theCustomer = (Customer) session.get(Customer.class, THEID);
+        // Reads the data
+        List<Customer> customers = session.createQuery("from Customer c where c.email LIKE '%email.com'", Customer.class).getResultList();
         // commit transaction
         session.getTransaction().commit();
         // Display result
         System.out.println("The customer retrieved is " + theCustomer);
+        System.out.println("Customer list ### ");
+        for (Customer customer : customers) {
+          System.out.println(customer);
+        }
+        System.out.println("End ###");
         System.out.println("Done!");
       }
       finally {
@@ -58,8 +65,8 @@ public class App {
       try {
         // create a customer object
         System.out.println("Creating new student object...");
-        Customer tempStudent1 = new Customer("Max", "Tux", "max@luv2code.com");
-        Customer tempStudent2 = new Customer("Al", "Alen", "max@luv2code.com");
+        Customer tempStudent1 = new Customer("Bob", "Bobbed", "max@email.com");
+        Customer tempStudent2 = new Customer("Carl", "Carlson", "max@email.com");
         // start a transaction
         session.beginTransaction();
         // save the customer object
