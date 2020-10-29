@@ -15,10 +15,41 @@ public class App {
     public static final int THEID = 1;
 
     public static void main( String[] args ) {
-      updateAnObjectWithHibernate();
+      deleteAnObjectWithHibernate();
+      //updateAnObjectWithHibernate();
       //readAnObjectHibernate();
       //createAnObjectHibernate();
       //dbConnectionWithJDBC();
+    }
+
+    public static void deleteAnObjectWithHibernate() {
+      // create session factory
+      SessionFactory sessionFactory = new Configuration()
+                                            .configure("hibernate.cfg.xml")
+                                            .addAnnotatedClass(Customer.class)
+                                            .buildSessionFactory();
+      // create session
+      Session session = sessionFactory.getCurrentSession();
+      try {
+        System.out.println("Reading a student object...");
+        // start a transaction
+        session.beginTransaction();
+        // Read the data
+        Customer theCustomer = (Customer) session.get(Customer.class, THEID);
+        // Delete the data
+        session.delete(theCustomer);
+        // Bulk Update
+        //session.createQuery("delete Customer where id = 2").executeUpdate();
+        // commit transaction
+        session.getTransaction().commit();
+        // Display result
+        System.out.println("The customer deleted is " + theCustomer);
+        System.out.println("Done!");
+      }
+      finally {
+        sessionFactory.close();
+      }
+
     }
 
     public static void updateAnObjectWithHibernate() {
@@ -31,7 +62,6 @@ public class App {
       Session session = sessionFactory.getCurrentSession();
       try {
         System.out.println("Reading a student object...");
-
         // start a transaction
         session.beginTransaction();
         // Read the data
