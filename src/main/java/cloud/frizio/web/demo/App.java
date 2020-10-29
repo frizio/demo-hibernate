@@ -37,7 +37,9 @@ public class App {
         // Read the data
         Customer theCustomer = (Customer) session.get(Customer.class, THEID);
         // Update the data
-        theCustomer.setLastName("Simpsonn");
+        theCustomer.setLastName("Simpson");
+        // Bulk Update
+        session.createQuery("update Customer set firstName = 'Homer' where lastName = 'Simpson'").executeUpdate();
         // commit transaction
         session.getTransaction().commit();
         // Display result
