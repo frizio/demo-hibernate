@@ -4,7 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class App {
+    
     public static void main( String[] args ) {
+      dbConnectionWithJDBC();
+    }
+  
+    public static void dbConnectionWithJDBC() {
 
         System.out.println( "Demo Hibernate" );
 
@@ -24,4 +29,7 @@ public class App {
         }
 
     }
+
+
+
 }
