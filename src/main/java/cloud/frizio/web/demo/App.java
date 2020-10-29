@@ -3,12 +3,50 @@ package cloud.frizio.web.demo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import cloud.frizio.web.demo.entity.Customer;
+
 public class App {
     
     public static void main( String[] args ) {
-      dbConnectionWithJDBC();
+      createAnObjectHibernate();
+      //dbConnectionWithJDBC();
     }
   
+
+    public static void createAnObjectHibernate() {
+      // create session factory
+      SessionFactory sessionFactory = new Configuration()
+                                            .configure("hibernate.cfg.xml")
+                                            .addAnnotatedClass(Customer.class)
+                                            .buildSessionFactory();
+      // create session
+      Session session = sessionFactory.getCurrentSession();
+      try {
+        // create a customer object
+        System.out.println("Creating new student object...");
+        Customer tempStudent1 = new Customer("Max", "Tux", "max@luv2code.com");
+        Customer tempStudent2 = new Customer("Al", "Alen", "max@luv2code.com");
+        // start a transaction
+        session.beginTransaction();
+        // save the customer object
+        System.out.println("Saving the student...");
+        session.save(tempStudent1);
+        session.save(tempStudent2);
+        // commit transaction
+        session.getTransaction().commit();
+        System.out.println("Done!");
+      }
+      finally {
+        sessionFactory.close();
+      }
+
+    }
+
+
     public static void dbConnectionWithJDBC() {
 
         System.out.println( "Demo Hibernate" );
